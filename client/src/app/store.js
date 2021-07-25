@@ -17,6 +17,7 @@ const persistConfig = {
 	key: 'root',
 	version: 1,
 	storage,
+	// blacklist: ['task', 'user'],
 };
 
 const rootReducer = combineReducers({
