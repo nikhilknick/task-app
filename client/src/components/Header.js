@@ -13,10 +13,10 @@ const Header = () => {
 	};
 
 	return (
-		<div className="bg-light text-white py-4 font-bold text-3xl">
+		<div className="bg-cyan-900 text-white py-4 font-bold text-3xl">
 			<div className="max-w-5xl mx-auto flex justify-between align-middle items-center px-3 sm:pt-0">
-				<p>Task App</p>
-				<p className="text-xl cursor-pointer" onClick={onLogout}>
+				<p className="text-xl sm:text-2xl">Task App</p>
+				<p className="text-lg sm:text-xl cursor-pointer" onClick={onLogout}>
 					Logout
 				</p>
 			</div>

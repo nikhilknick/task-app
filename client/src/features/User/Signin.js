@@ -33,15 +33,15 @@ const Signin = () => {
 
 	return (
 		<div className="relative">
-			<div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl w-full bg-red-700 z-10"></div>
+			<div className="absolute inset-0 bg-gradient-to-r from-cyan-700 to-sky-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl w-full bg-red-700 z-10"></div>
 			<div className="relative bg-white z-20 shadow-lg space-y-3 p-10">
 				<h2 className="text-xl font-bold  mb-2">Signin</h2>
 				<h3 className="mb-2">Follow the steps</h3>
 				<form className="flex flex-col" onSubmit={handleSubmit(onSubmit)} method="POST">
 					<label className="flex flex-col">
-						Email
+						E-mail
 						<input
-							className="border-solid border-2 border-light-blue-500"
+							className="border-solid border-2 border-light-blue-500 px-2 py-1 shadow-sm"
 							{...register('email', {
 								required: {
 									value: true,
@@ -58,7 +58,7 @@ const Signin = () => {
 					<label className="flex flex-col mt-5">
 						Password
 						<input
-							className="border-solid border-2 border-light-blue-500"
+							className="border-solid border-2 border-light-blue-500 px-2 py-1 shadow-sm"
 							{...register('password', {
 								required: {
 									value: true,
@@ -73,7 +73,11 @@ const Signin = () => {
 						/>
 					</label>
 					{errors.password && <div className="error">{errors.password.message}</div>}
-					<input className="mt-5 cursor-pointer font-normal py-1" type="submit" value="submit" />
+					<input
+						className="mt-5 cursor-pointer font-semibold py-1 bg-cyan-900 text-white"
+						type="submit"
+						value="Sign in"
+					/>
 				</form>
 				<Toaster
 					toastOptions={{
