@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const signupUser = createAsyncThunk(
 	'users/signupUser',
@@ -66,12 +67,54 @@ export const logoutUser = createAsyncThunk('users/logout', async () => {
 	}).then((res) => res.json());
 });
 
+//FETCH USER PROFILE
+export const fetchUserProfile = createAsyncThunk('users/fetchUserProfile', async (_, thunkAPI) => {
+	const token = localStorage.getItem('token');
+	try {
+		const response = await fetch('http://localhost:3090/users/me', {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				authorization: `Bearer ${token}`,
+			},
+		});
+		let data = await response.json();
+		if (response.status === 200) {
+			return { ...data };
+		} else {
+			return rejectWithValue(data);
+		}
+	} catch (e) {
+		return thunkAPI.rejectWithValue(e.response.data);
+	}
+});
+
+//UPLOAD PROFILE PIC
+export const uploadProfilePic = createAsyncThunk(
+	'users/uploadProfilePic',
+	async (avatar, thunkAPI) => {
+		const token = localStorage.getItem('token');
+
+		return axios
+			.post('http://localhost:3090/users/me/avatar', avatar, {
+				headers: {
+					'content-type': 'multipart/form-data',
+					authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => res.json());
+	}
+);
+
 export const userSlice = createSlice({
 	name: 'user',
 	initialState: {
 		user: null,
+		profile: null,
 		isAuthenticated: false,
 		status: null,
+		profileFetchStatus: null,
 	},
 	reducers: {},
 	extraReducers: {
@@ -100,7 +143,19 @@ export const userSlice = createSlice({
 		[logoutUser.fulfilled]: (state, action) => {
 			state.isAuthenticated = false;
 		},
+		[fetchUserProfile.fulfilled]: (state, { payload }) => {
+			state.profile = payload;
+			state.profileFetchStatus = 'success';
+		},
+		[fetchUserProfile.pending]: (state, action) => {
+			state.profileFetchStatus = 'loading';
+		},
+		[fetchUserProfile.rejected]: (state, action) => {
+			state.profileFetchStatus = 'failed';
+		},
+		[uploadProfilePic.fulfilled]: (state, { payload }) => {},
 	},
 });
 export const { logout } = userSlice.actions;
-export const userSelector = (state) => state.user;
+export const selectUser = (state) => state.user.profile;
+export const selectUserFetchStatus = (state) => state.user.profileFetchStatus;

@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { signinUser, signupUser } from './UserSlice';
-import toast, { Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { signinUser } from './UserSlice';
 
 const Signin = () => {
 	const dispatch = useDispatch();
