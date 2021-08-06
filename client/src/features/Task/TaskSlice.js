@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 //FETCH TASKS
 export const getTasks = createAsyncThunk('tasks/getTasks', async () => {
 	const token = localStorage.getItem('token');
-	return fetch('http://localhost:3090/tasks?sortBy=createdAt:desc', {
+	return fetch('/api/tasks?sortBy=createdAt:desc', {
 		method: 'GET',
 		headers: new Headers({
 			authorization: `Bearer ${token}`,
@@ -17,7 +17,7 @@ export const addTask = createAsyncThunk(
 	async ({ description }, { rejectWithValue }) => {
 		const token = localStorage.getItem('token');
 		try {
-			const response = await fetch('http://localhost:3090/tasks', {
+			const response = await fetch('/api/tasks', {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -46,7 +46,7 @@ export const updateTaskCompletion = createAsyncThunk(
 	async ({ id, completed }, { rejectWithValue }) => {
 		const token = localStorage.getItem('token');
 		try {
-			const response = await fetch(`http://localhost:3090/tasks/${id}`, {
+			const response = await fetch(`/api/tasks/${id}`, {
 				method: 'PATCH',
 				headers: {
 					Accept: 'application/json',
@@ -73,7 +73,7 @@ export const updateTaskCompletion = createAsyncThunk(
 export const deleteTask = createAsyncThunk('tasks/deleteTask', async (id, { rejectWithValue }) => {
 	const token = localStorage.getItem('token');
 	try {
-		const response = await fetch(`http://localhost:3090/tasks/${id}`, {
+		const response = await fetch(`/api/tasks/${id}`, {
 			method: 'DELETE',
 			headers: {
 				Accept: 'application/json',
@@ -98,7 +98,7 @@ export const editTask = createAsyncThunk(
 	async ({ id, taskDescription }, { rejectWithValue }) => {
 		const token = localStorage.getItem('token');
 		try {
-			const response = await fetch(`http://localhost:3090/tasks/${id}`, {
+			const response = await fetch(`/api/tasks/${id}`, {
 				method: 'PATCH',
 				headers: {
 					Accept: 'application/json',
