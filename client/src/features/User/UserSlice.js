@@ -5,7 +5,7 @@ export const signupUser = createAsyncThunk(
 	'users/signupUser',
 	async ({ name, email, password }, thunkAPI) => {
 		try {
-			const response = await fetch('http://localhost:3090/users', {
+			const response = await fetch('/api/users', {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -32,7 +32,7 @@ export const signupUser = createAsyncThunk(
 
 export const signinUser = createAsyncThunk('users/signinUser', async (data, thunkAPI) => {
 	try {
-		const response = await fetch('http://localhost:3090/users/login', {
+		const response = await fetch('/api/users/login', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -57,7 +57,7 @@ export const signinUser = createAsyncThunk('users/signinUser', async (data, thun
 
 export const logoutUser = createAsyncThunk('users/logout', async () => {
 	const token = localStorage.getItem('token');
-	return fetch('http://localhost:3090/users/logout', {
+	return fetch('/api/users/logout', {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
@@ -71,7 +71,7 @@ export const logoutUser = createAsyncThunk('users/logout', async () => {
 export const fetchUserProfile = createAsyncThunk('users/fetchUserProfile', async (_, thunkAPI) => {
 	const token = localStorage.getItem('token');
 	try {
-		const response = await fetch('http://localhost:3090/users/me', {
+		const response = await fetch('/api/users/me', {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
@@ -97,7 +97,7 @@ export const uploadProfilePic = createAsyncThunk(
 		const token = localStorage.getItem('token');
 
 		return axios
-			.post('http://localhost:3090/users/me/avatar', avatar, {
+			.post('/api/users/me/avatar', avatar, {
 				headers: {
 					'content-type': 'multipart/form-data',
 					authorization: `Bearer ${token}`,
