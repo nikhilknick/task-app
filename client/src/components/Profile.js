@@ -7,7 +7,6 @@ import {
 	selectUser,
 } from '../features/User/UserSlice';
 import FormData from 'form-data';
-import Image from 'next/image';
 
 const Profile = () => {
 	const [defaultProfile, setDefaultProfile] = useState('/images/user.svg');
@@ -53,16 +52,13 @@ const Profile = () => {
 				<div className="items-center flex flex-col space-y-2">
 					{userData.avatar && defaultProfile === '/images/user.svg' ? (
 						<div className="w-36 h-36 rounded-full">
-							<img src={`data:image/png;base64,${userData.avatar}`} className="rounded-full" />
+							<img
+								src={`data:image/png;base64,${userData.avatar}`}
+								className="rounded-full h-36 w-36"
+							/>
 						</div>
 					) : (
-						<Image
-							height={144}
-							width={144}
-							src={defaultProfile}
-							alt="me"
-							className="rounded-full"
-						/>
+						<img className="h-36 w-36 rounded-full" src={defaultProfile} alt="me" />
 					)}
 
 					<p className="text-lg font-semibold">{userData.name}</p>
