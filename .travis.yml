@@ -1,0 +1,28 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+after_success:
+- docker build -t nikhilknick/task-client ./client
+- docker build -t nikhilknick/task-nginx ./nginx
+- docker build -t nikhilknick/task-server ./server
+# Log in to the docker CLI
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take those images and push them to docker hub
+- docker push nikhilknick/task-client
+- docker push nikhilknick/task-nginx
+- docker push nikhilknick/task-server
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  app: "multi-task"
+  env: "Multitask-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-628156689807"
+  bucket_path: "docker-task"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateTaskCompletion, deleteTask } from '../features/Task/TaskSlice';
 import EditTaskForm from '../components/EditTaskForm';
-import Image from 'next/image';
 
 const Task = ({ description, completed, id }) => {
 	const dispatch = useDispatch();
@@ -38,9 +37,9 @@ const Task = ({ description, completed, id }) => {
 				onClick={() => toggleIsEditing(!isEditing)}
 			>
 				{isEditing ? (
-					<Image src="/icons/cross.svg" alt="edit" height={20} width={20} />
+					<img src="/icons/cross.svg" alt="edit" className="h-5 w-5" />
 				) : (
-					<Image src="/icons/edit.svg" alt="edit" height={20} width={20} />
+					<img src="/icons/edit.svg" alt="edit" className="h-5 w-5" />
 				)}
 			</div>
 
@@ -49,7 +48,7 @@ const Task = ({ description, completed, id }) => {
 				onClick={() => removeTask(id)}
 				className="p-4 bg-red-400 flex items-center"
 			>
-				<Image src="/icons/delete.svg" alt="delete" height={20} width={20} />
+				<img src="/icons/delete.svg" alt="delete" className="h-5 w-5" />
 			</button>
 		</div>
 	);
